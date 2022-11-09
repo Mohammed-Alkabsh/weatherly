@@ -3,6 +3,10 @@ import * as mapboxgl from 'mapbox-gl';
 import { Feature, MapboxService } from 'src/app/services/mapbox/mapbox.service';
 import { environment } from 'src/environments/environment';
 import { Subscription } from 'rxjs';
+import {
+  CurrentWeather,
+  WeatherService,
+} from 'src/app/services/weather/weather.service';
 
 @Component({
   selector: 'app-map',
@@ -11,16 +15,32 @@ import { Subscription } from 'rxjs';
 })
 export class MapComponent implements OnInit, OnDestroy {
   selectedLocationSubscription?: Subscription;
+  currentWeatherSubscription?: Subscription;
+  weather: CurrentWeather | null = null;
+  selectedLocation: Feature | undefined;
+
   map?: mapboxgl.Map;
   style = 'mapbox://styles/mapbox/streets-v11';
   lat = 37.75;
   lng = -122.41;
-  constructor(private mapService: MapboxService) {}
+  constructor(
+    private mapService: MapboxService,
+    private weatherService: WeatherService
+  ) {}
 
   ngOnInit(): void {
+    this.currentWeatherSubscription =
+      this.weatherService.locationWeather.subscribe(
+        (weather: CurrentWeather | null) => {
+          this.weather = weather;
+        }
+      );
+
     this.selectedLocationSubscription =
       this.mapService.selectedLocation.subscribe(
         (location: Feature | undefined) => {
+          this.selectedLocation = location;
+
           if (location) {
             this.map?.flyTo({
               center: location.center,
@@ -41,5 +61,9 @@ export class MapComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.selectedLocationSubscription?.unsubscribe();
+  }
+
+  getWeatherCondition(code: number) {
+    return this.weatherService.getWeatherCondition(code);
   }
 }

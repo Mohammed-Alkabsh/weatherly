@@ -10,6 +10,7 @@ import { LocationFormComponent } from './components/location-form/location-form.
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [AppComponent, MapComponent, LocationFormComponent],
@@ -20,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ButtonModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    CardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

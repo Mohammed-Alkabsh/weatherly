@@ -89,7 +89,6 @@ export class LocationService {
     this._authorizationTokenLoadingError.next(null);
     return this.http.get(url, options as any).subscribe({
       next: (response: any) => {
-        console.log('success');
         this._authorizationTokenLoading.next(false);
         this._authorizationTokenLoadingError.next(null);
         this._authorizationToken.next(`Bearer ${response.body.auth_token}`);
@@ -97,17 +96,13 @@ export class LocationService {
       error: (error: HttpErrorResponse) => {
         this._authorizationTokenLoading.next(false);
         this._authorizationTokenLoadingError.next(error);
-        console.log(error);
       },
     });
   }
 
   fetchCountries() {
-    console.log('fetching countries');
-    console.log(this._authorizationToken.getValue());
     const authT: string | undefined = this._authorizationToken.getValue();
     if (authT) {
-      console.log('we have token');
       const url = 'https://www.universal-tutorial.com/api/countries/';
 
       const options = {
@@ -128,7 +123,6 @@ export class LocationService {
           this._countries.next(countries);
         },
         error: (error: HttpErrorResponse) => {
-          console.log('fetching countries failed');
           this._countriesLoading.next(false);
           this._countriesLoadingError.next(error);
         },
@@ -154,13 +148,11 @@ export class LocationService {
       return this.http.get<any>(url, options as any).subscribe({
         next: (response: any) => {
           const states: IState[] = response.body;
-          console.log(states);
           this._states.next(states);
           this._statesLoading.next(false);
           this._statesLoadingError.next(null);
         },
         error: (error: HttpErrorResponse) => {
-          console.log(error);
           this._statesLoading.next(false);
           this._statesLoadingError.next(error);
         },
@@ -190,10 +182,8 @@ export class LocationService {
           this._citiesLoading.next(false);
           this._citiesLoadingError.next(null);
           this._cities.next(cities);
-          console.log();
         },
         error: (error: HttpErrorResponse) => {
-          console.log(error);
           this._citiesLoading.next(false);
           this._citiesLoadingError.next(error);
         },

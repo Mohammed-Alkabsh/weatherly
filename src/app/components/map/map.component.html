@@ -1,1 +1,35 @@
 <div id="map"></div>
+
+<p-card
+  *ngIf="selectedLocation && weather"
+  [header]="'Current weather for ' + selectedLocation.place_name"
+>
+  <ul>
+    <li>
+      <p>
+        <span class="text-bold">temperature:</span> {{ weather.temperature }}deg
+        fahrenheit
+      </p>
+    </li>
+    <li>
+      <p><span class="text-bold">time:</span> {{ weather.time | date }}</p>
+    </li>
+    <li>
+      <p>
+        <span class="text-bold">Condition:</span>
+        {{ getWeatherCondition(weather.weathercode) }}
+      </p>
+    </li>
+    <li>
+      <p>
+        <span class="text-bold">winddirection:</span>
+        {{ weather.winddirection }}deg
+      </p>
+    </li>
+    <li>
+      <p>
+        <span class="text-bold">windspeed:</span> {{ weather.windspeed }}mph
+      </p>
+    </li>
+  </ul>
+</p-card>

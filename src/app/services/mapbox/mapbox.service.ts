@@ -54,12 +54,10 @@ export class MapboxService {
           this._locationsLoading.next(false);
           this._locationsLoadingError.next(null);
           this._locations.next(res.features);
-          console.log(res.features);
         },
         error: (error: HttpErrorResponse) => {
           this._locationsLoading.next(false);
           this._locationsLoadingError.next(error);
-          console.log(error);
         },
       });
   }
