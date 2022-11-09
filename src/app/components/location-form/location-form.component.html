@@ -1,0 +1,55 @@
+<form #locationForm="ngForm" (ngSubmit)="onSubmit(locationForm)">
+  <div class="p-fluid grid">
+    <div class="field col">
+      <span class="p-float-label">
+        <p-autoComplete
+          [(ngModel)]="selectedCountry"
+          [showEmptyMessage]="true"
+          [suggestions]="filteredCountries"
+          name="country_name"
+          (completeMethod)="filterCountry($event)"
+          field="country_name"
+          inputId="country_name"
+          (onFocus)="handleCountryFocus($event)"
+        ></p-autoComplete>
+        <label for="autocomplete">Country</label>
+      </span>
+    </div>
+    <div class="field col">
+      <span class="p-float-label">
+        <p-autoComplete
+          [(ngModel)]="selectedState"
+          [showEmptyMessage]="true"
+          [suggestions]="filteredStates"
+          name="state_name"
+          (completeMethod)="filterState($event)"
+          field="state_name"
+          inputId="state_name"
+          (onFocus)="fetchCities($event)"
+        ></p-autoComplete>
+        <label for="autocomplete">State</label>
+      </span>
+    </div>
+    <div class="field col">
+      <span class="p-float-label">
+        <p-autoComplete
+          inputId="autocomplete"
+          [(ngModel)]="selectedCity"
+          [suggestions]="filteredCountries"
+          (completeMethod)="searchCity($event)"
+          field="city"
+          name="city"
+        ></p-autoComplete>
+        <label for="autocomplete">City</label>
+      </span>
+    </div>
+    <div class="field col">
+      <button
+        pButton
+        class="p-button p-button-primary"
+        type="submit"
+        label="Check Weather"
+      ></button>
+    </div>
+  </div>
+</form>
