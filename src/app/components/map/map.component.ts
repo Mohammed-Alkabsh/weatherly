@@ -41,11 +41,17 @@ export class MapComponent implements OnInit, OnDestroy {
         (location: Feature | undefined) => {
           this.selectedLocation = location;
 
-          if (location) {
+          if (location && this.map) {
             this.map?.flyTo({
               center: location.center,
               essential: true,
             });
+
+            const marker = new mapboxgl.Marker({
+              color: '#8B5CF6',
+            })
+              .setLngLat(location.center)
+              .addTo(this.map);
           }
         }
       );
